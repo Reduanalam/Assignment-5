@@ -1,0 +1,146 @@
+/* style.css */
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f9;
+}
+
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 30px;
+    margin-right: 10px;
+}
+
+.task-count {
+    display: flex;
+    align-items: center;
+    background-color: #e0f2fe;
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+
+.task-count img {
+    width: 20px;
+    margin-right: 5px;
+}
+
+main {
+    flex: 3;
+    padding-right: 20px;
+}
+
+.main-content {
+    display: flex;
+    justify-content: space-around;
+    background-color: #e0f2fe;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.task-assigned, .discover, .date {
+    text-align: center;
+}
+
+.task-number {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.main-content img {
+    width: 30px;
+    margin-bottom: 5px;
+}
+
+.tasks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.task-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.task-header {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.task-title {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.task-description {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.task-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.deadline {
+    color: #888;
+}
+
+.status {
+    background-color: #4caf50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.9em;
+}
+
+.activity-log {
+    flex: 1;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.activity-log h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.clear-history {
+    background-color: #e0e0e0;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.log-item {
+    background-color: white;
+    padding:

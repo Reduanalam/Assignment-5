@@ -1,0 +1,150 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.header-section {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 30px;
+    margin-right: 10px;
+}
+
+.logo span {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.header-icons {
+    display: flex;
+    align-items: center;
+}
+
+.task-count {
+    background-color: #e0f2fe;
+    padding: 8px 15px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.task-count img {
+    width: 20px;
+    margin-right: 5px;
+}
+
+.header-icons img {
+    width: 30px;
+}
+
+.main-content {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.task-assigned, .discover, .date {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.discover {
+    background-color: #8A2BE2;
+    color: white;
+}
+
+.main-content img {
+    width: 30px;
+    margin-bottom: 5px;
+}
+
+.task-assigned span, .discover span, .date span {
+    font-size: 0.8em;
+    text-align: center;
+}
+
+.task-assigned span:nth-child(3) {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.discover span:nth-child(2), .discover span:nth-child(3) {
+    font-size: 1.1em;
+}
+
+.tasks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.task-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.task-card h3 {
+    margin-top: 0;
+}
+
+.task-card h2 {
+    margin-bottom: 5px;
+}
+
+.task-card p {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.task-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-footer span:first-child {
+    color: #888;
+}
+
+.status {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.9em;
+}
+
+.activity-log {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    font-family: sans-serif;
+}
+
+.activity-header {

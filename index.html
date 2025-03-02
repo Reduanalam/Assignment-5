@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevBoard</title>
+    <style>
+
+
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .assigned{
+            display: flex;
+            justify-content: space-between;
+        }
+        .task-assigned{
+            width: 263px;
+            height: 128px;
+            border-radius: 12px;
+            background: rgb(244, 247, 255);
+            display: flex;
+            align-items: center;
+        }
+        .board{
+           
+           width: 324px;
+         height: 128px;
+         border-radius: 12px;
+         background: linear-gradient(130.70deg, rgb(55, 82, 253) 0.419%,rgb(108, 127, 250) 52.66%,rgb(155, 168, 248) 99.733%);
+         display: flex;
+         align-items: center;
+        }
+        .date{
+            width: 263px;
+            height: 128px;
+            border-radius: 12px;
+            background: rgb(244, 247, 255);
+            display: flex;
+            align-items: center;
+            padding-left: 20px;
+        }
+        #tick-button {
+        background-color: #74c1ee; /* Green color */
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 50%;
+        font-size: 18px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    #tick-button:hover {
+        background-color: #889cf7;
+    }
+        .board{
+            display: flex;
+        }
+
+        .alert {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            z-index: 1000;
+        }
+
+        .container {
+            width: 1200px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+             display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 20px;  
+        }
+        .deadline {
+        font-size: 14px;
+        font-weight: bold;
+        color: #000000; 
+        /* Orange-Red color for visibility */
+        opacity: 0.7;
+        }
+
+        .tasks {
+            grid-column: 1;
+            /* display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, auto); */
+            gap: 20px;
+        }
+        .card{
+            grid-column: 1;
+             display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, auto);  
+            gap: 20px;
+        }
+
+        .task-card {
+            background-color: rgb(244, 247, 255);
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width:280px;
+height: 317px;
+        }
+
+        .task-header {
+            /* font-weight: bold;
+            margin-bottom: 10px; */
+            /* Frame 1 */
+            border-radius: 8px;
+            background: rgb(255, 255, 255);
+          
+            width: 114px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+.task-title{
+    color: rgb(0, 48, 60);
+   font-family: Poppins;
+   font-size: 20px;
+   font-weight: 500;
+   margin-top: 16px;
+}
+.task-main{
+    width: 280px;
+height: 92px;
+border-radius: 8px;
+background:rgb(255, 255, 255);
+margin-top: 20px;
+ 
+padding: 1%;
+display: flex;
+ 
+align-items: center;
+}
+        .task-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 27px;
+        }
+
+        .status {
+            background-color: red;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+        .image{
+             height: 25px;
+            width: 25px;
+            margin-top: 25px;
+            margin-left: 25px;
+        }
+        .activity{
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .activity-log {
+            grid-column: 2;
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .clear-history {
+            background-color: #6750A4;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .log-item {
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        #task-count {
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Alert Container -->
+    <div id="alert" class="alert"></div>
+
+    <div class="container">
+        <section class="tasks">
+           <div class="assigned">
+              <h2 class="task-assigned"> <button id="tick-button" onclick="markAllCompleted()">✔</button> 
+                  Tasks Assigned: <span id="task-count"><b>6</b></span>
+              </h2>
+              <div class="board"><img src="image/board.png" alt="">
+                   <p>Discover Something New Today!</p>
+               </div>
+               
+              <div class="date">
+                    <img src="image/calender.png" alt="Calendar Icon">
+                     <span id="current-date" style="font-weight: bold; margin-left: 10px;"></span>
+                </div>
+            </div>
+
+            <div class="card">
+                <!-- <div class="task-card">
+                    <div class="task-header">ShopEasy</div>
+                    <div class="task-title">Fix Mobile Button Issue</div>
+                    <div class="task-footer">
+                        <button onclick="completeTask(this)">Complete</button>
+                        <div class="status">Pending</div>
+                    </div> -->
+                    <div class="task-card">
+                        <div class="task-header">ShopEasy</div>
+                        <div class="task-title">Fix Mobile Button Issue</div>
+                        <div class="task-main">
+                            Debug using Chrome DevTools, check for overlapping elements, and ensure onClick works properly
+                             
+                        </div>
+                        <div>
+                            <div class="deadline">Deadline: <br>21 March 2025</div>
+                            
+                           <div class="task-footer">
+                            <button onclick="completeTask(this)">Complete</button>
+                            <div class="status">Pending</div>
+                           </div>  
+                        </div>
+                    </div>
+                    <div class="task-card">
+                        <div class="task-header">CloudSync</div>
+                        <div class="task-title">Add Dark Mode</div>
+                        <div class="task-main">
+                            Store the user's preference in localStorage, update CSS variables dynamically.                             
+                        </div>
+                        <div>
+                            <div class="deadline">Deadline: <br>21 March 2025</div>
+                            
+                           <div class="task-footer">
+                            <button onclick="completeTask(this)">Complete</button>
+                            <div class="status">Pending</div>
+                           </div>  
+                        </div>
+                    </div>
+                    <div class="task-card">
+                        <div class="task-header">SwiftPay</div>
+                        <div class="task-title">Optimize  Home page </div>
+                        <div class="task-main">
+                            Debug using Chrome DevTools, check for overlapping elements, and ensure onClick works properly
+                                                        
+                        </div>
+                        <div>
+                            <div class="deadline">Deadline: <br>21 March 2025</div>
+                            
+                           <div class="task-footer">
+                            <button onclick="completeTask(this)">Complete</button>
+                            <div class="status">Pending</div>
+                           </div>  
+                        </div>
+                    </div>
+                    <div class="task-card">
+                        <div class="task-header">Meta</div>
+                        <div class="task-title">Add new emoji 🤲</div>
+                        <div class="task-main">
+                            Debug using Chrome DevTools, check for overlapping elements, and ensure onClick works properly
+                                                         
+                        </div>
+                        <div>
+                            <div class="deadline">Deadline: <br>21 March 2025</div>
+                            
+                           <div class="task-footer">
+                            <button onclick="completeTask(this)">Complete</button>
+                            <div class="status">Pending</div>
+                           </div>  
+                        </div>
+                    </div>
+                    <div class="task-card">
+                        <div class="task-header">Google LLC</div>
+                        <div class="task-title">Integrate OpenAI API </div>
+                        <div class="task-main">
+                            Debug using Chrome DevTools, check for overlapping elements, and ensure onClick works properly
+                             
+                        </div>
+                        <div>
+                            <div class="deadline">Deadline: <br>21 March 2025</div>
+                            
+                           <div class="task-footer">
+                            <button onclick="completeTask(this)">Complete</button>
+                            <div class="status">Pending</div>
+                           </div>  
+                        </div>
+                    </div>
+                    <div class="task-card">
+                        <div class="task-header">Glassdoar</div>
+                        <div class="task-title">Improve Job searching </div>
+                        <div class="task-main">
+                            Debug using Chrome DevTools, check for overlapping elements, and ensure onClick works properly
+                             
+                        </div>
+                        <div>
+                            <div class="deadline">Deadline: <br>21 March 2025</div>
+                            
+                           <div class="task-footer">
+                            <button onclick="completeTask(this)">Complete</button>
+                            <div class="status">Pending</div>
+                           </div>  
+                        </div>
+                    </div>
+                     
+                     
+                 
+            </div>
+        </section>
+
+        
+        <aside class="activity-log">
+            <div class="activity">
+               <div class="image">
+                <img src="image/activity.png"  alt="">
+               </div>
+            <h2>Activity Log</h2>
+            </div>
+            <button class="clear-history" onclick="clearHistory()">Clear History</button>
+            <div id="log-items"></div>
+        </aside>
+    </div>
+
+    <script>
+
+ 
+    function markAllCompleted() {
+        const taskCards = document.querySelectorAll('.task-card .status');
+        
+        taskCards.forEach(statusDiv => {
+            statusDiv.textContent = "Completed";
+            statusDiv.style.backgroundColor = "#4caf50"; // Green color
+        });
+
+        // Update task count to 0
+        document.getElementById('task-count').textContent = 0;
+
+        // Show success alert
+        showAlert("All tasks marked as completed!");
+    }
+ 
+
+        let tasksRemaining = 6;
+       
+        function updateDate() {
+        const dateElement = document.getElementById("current-date");
+        const today = new Date();
+
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = today.toLocaleDateString('en-US', options); // Example: "Sunday, March 2, 2025"
+
+        dateElement.textContent = formattedDate;
+    }
+
+    // Call the function when the page loads
+    updateDate();
+
+ 
+        // function completeTask(button) {
+        //     const taskCard = button.closest('.task-card');
+        //     const statusDiv = taskCard.querySelector('.status');
+             
+        //     // Check if already completed
+        //     if (statusDiv.textContent === "Completed") {
+        //         showAlert("Task is already completed!");
+        //         return;
+        //     }
+
+        //     // Mark task as completed
+        //     statusDiv.textContent = "Completed";
+        //     statusDiv.style.backgroundColor = "#4caf50";
+
+        //     // Update tasks remaining count
+        //     tasksRemaining--;
+        //     document.getElementById('task-count').textContent = tasksRemaining;
+
+        //     // Add to activity log
+        //     const logItems = document.getElementById('log-items');
+        //     const now = new Date();
+        //     const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        //     const logItem = document.createElement('div');
+        //     logItem.classList.add('log-item');
+        //     logItem.innerHTML = `<p>You have completed the task. (${timeString})</p>`;
+
+        //     logItems.appendChild(logItem);
+
+        //     // Show completion alert
+        //     // showAlert("Task completed successfully!");
+        //     showAlert(`Task "${taskTitle}" completed successfully!`);
+        // }
+        function completeTask(button) {
+    const taskCard = button.closest('.task-card');
+    const statusDiv = taskCard.querySelector('.status');
+    const taskTitle = taskCard.querySelector('.task-title').textContent;  // Get task title
+
+    // Check if already completed
+    if (statusDiv.textContent === "Completed") {
+        showAlert("Task is already completed!");
+        return;
+    }
+
+    // Mark task as completed
+    statusDiv.textContent = "Completed";
+    statusDiv.style.backgroundColor = "#4caf50";
+
+    // Update tasks remaining count
+    tasksRemaining--;
+    document.getElementById('task-count').textContent = tasksRemaining;
+
+    // Add to activity log
+    const logItems = document.getElementById('log-items');
+    const now = new Date();
+    const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    const logItem = document.createElement('div');
+    logItem.classList.add('log-item');
+    logItem.innerHTML = `<p>You have completed the <b>${taskTitle}</b>. (${timeString})</p>`;
+
+    logItems.appendChild(logItem);
+
+    // Show completion alert
+    showAlert(`Task "${taskTitle}" completed successfully!`);
+}
+
+        function clearHistory() {
+            document.getElementById('log-items').innerHTML = '';
+        }
+
+        function showAlert(message) {
+            const alertBox = document.getElementById('alert');
+            alertBox.textContent = message;
+            alertBox.style.display = 'block';
+
+            // Hide alert after 3 seconds
+            setTimeout(() => {
+                alertBox.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
