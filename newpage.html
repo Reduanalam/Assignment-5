@@ -1,0 +1,171 @@
+<!-- <button onclick="window.location.href='index.html'" class="back-btn">Back to Deck</button> -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .heading{
+            text-align: center;
+        }
+        .blog{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        }
+        .q1 {
+            margin-top: 10px;
+            padding: 2%;
+            border-radius: 30px;
+            background: rgb(236, 225, 208);
+            width: 1100px;
+        }
+
+        .q2 {
+            margin-top: 10px;
+            padding: 2%;
+            border-radius: 30px;
+            background: rgb(236, 225, 208);
+            width: 1100px;
+        }
+
+        .q3 {
+            margin-top: 10px;
+            padding: 2%;
+            border-radius: 30px;
+            background: rgb(236, 225, 208);
+            width: 1100px;
+        }
+
+        .q4 {
+            margin-top: 10px;
+            padding: 2%;
+            border-radius: 30px;
+            background: rgb(236, 225, 208);
+            width: 1100px;
+        }
+
+        .q5 {
+            margin-top: 10px;
+            padding: 2%;
+           border-radius: 30px;
+            background: rgb(236, 225, 208);
+            width: 1100px;
+        }
+
+
+
+
+
+        .nav {
+            display: flex;
+            justify-content: space-evenly;
+            margin-bottom: 20px;
+            background: rgb(148, 147, 147);
+            border-radius: 10px;
+            /* border: 1px solid tomato; */
+            background: rgb(207, 202, 202);
+            width: 1150px;
+            margin-top: 20px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            width: 300px;
+            min-height: 80px;
+            margin-right: 700px;
+            padding-left: 20px;
+        }
+
+        .nav-logo img {
+            max-width: 100px;
+            margin-right: 10px;
+        }
+
+        .nav-logo h1 {
+            margin: 0;
+        }
+        .back-btn{
+            font-size: larger;
+           background:rgb(136, 150, 236);
+           color: white;
+           margin-top: 10px; 
+           margin-right: 10px;
+           border-radius: 10px;
+       
+        }
+        
+    </style>
+</head>
+
+<body>
+
+    <div class="blog">
+        <div class="nav">
+            <div class="nav-logo">
+                <img src="image/logo.png" alt="">
+               <h1> Dev<b>Board</b> </h1> 
+            </div>
+            <div class="button">
+               
+                <button onclick="window.history.back();" class="back-btn">Back to Desk</button>
+            </div>
+        </div>
+        <h1 class="heading">Blog</h1>
+        <div class="q1">
+            <h4>Question-1: What are the different ways to select an element in the DOM?</h4>
+            <p> Answer: <br>
+                1. document.getElementById("id") → Selects an element by ID. <br>
+                2. document.getElementsByClassName("class") → Selects elements by class (returns a collection).<br>
+                3. document.getElementsByTagName("tag") → Selects elements by tag name.<br>
+                4.document.querySelector("selector") → Selects the first matching element.<br>
+                5. document.querySelectorAll("selector") → Selects all matching elements (returns a NodeList).<br>
+        </div>
+
+        <div class="q2">
+
+            <h4> Question-2: What is the difference between innerHTML, innerText, and textContent ?</h4>
+            <p>Answer: <br>
+                1.innerHTML → Returns or sets HTML content, including tags. <br>
+                2.innerText → Returns or sets visible text, ignoring hidden. <br>
+                3.textContent → Returns or sets all text, including hidden elements, but without parsing HTML.
+            </p>
+        </div>
+        <div class="q3">
+            <h4> Question-3: What is event delegation in the DOM?</h4>
+            <p>Answer:
+                Event delegation is a technique where a parent element handles events for its child elements  <br>
+                using event bubbling. It improves performance by reducing event listeners.
+            </p>
+        </div>
+        <div class="q4">
+            <h4> Question-4: What is event bubbling in the DOM?</h4>
+            <p>Answer:
+                Event bubbling is when an event triggered on a child element propagates up to its parent elements. <br>
+                It allows handling events at a higher level.
+            </p>
+        </div>
+        <div class="q5">
+            <h4> Question-5: How do you create, add, and remove elements using JavaScript?</h4>
+            <p> 
+                Answer:
+                <!-- create -->
+                 <h4>create</h4> 
+                let newDiv = document.createElement("div");
+                newDiv.textContent = "Hello!"; <br>
+                <!-- add -->
+                 <h4>Add</h4> 
+                document.body.appendChild(newDiv); 
+                <!-- remove -->
+                 <h4>Remove</h4>
+                newDiv.remove();
+
+            </p>
+        </div>
+
+</body>
+
+</html>
