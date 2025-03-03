@@ -520,27 +520,47 @@
         }
 
 
+        // function markAllCompleted() {
+        //     const taskCards = document.querySelectorAll('.task-card .status');
+
+        //     taskCards.forEach(statusDiv => {
+        //         statusDiv.textContent = "Completed";
+        //         // statusDiv.style.display = "completed";
+                 
+        //         // statusDiv.style.backgroundColor = "#4caf50";  
+        //     });
+
+        //     // Update task count to 0
+        //     document.getElementById('task-count').textContent = 0;
+
+        //     // Show success alert
+        //     showAlert("All tasks marked as completed!");
+        // }
+
+
         function markAllCompleted() {
-            const taskCards = document.querySelectorAll('.task-card .status');
+    const taskCards = document.querySelectorAll('.task-card');
+    const logItems = document.getElementById('log-items');
+    const now = new Date();
+    const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-            taskCards.forEach(statusDiv => {
-                statusDiv.textContent = "Completed";
-                statusDiv.style.display = "completed";
-                statusDiv.textContent.display = "none";
-         
-        
+    taskCards.forEach(taskCard => {
+        const statusDiv = taskCard.querySelector('.status');
+        const taskTitle = taskCard.querySelector('.task-title').textContent;
 
-                // statusDiv.style.backgroundColor = "#4caf50";  
-            });
+        statusDiv.textContent = "Completed"; 
 
-            // Update task count to 0
-            document.getElementById('task-count').textContent = 0;
-
-            // Show success alert
-            showAlert("All tasks marked as completed!");
-        }
-
-
+    
+        const logItem = document.createElement('div');
+        logItem.classList.add('log-item');
+        logItem.innerHTML = `<p>You have completed <b>${taskTitle}</b>. (${timeString})</p>`;
+        logItems.appendChild(logItem);
+ 
+    });
+    document.getElementById('task-count').textContent = 0;
+    showAlert("All tasks marked as completed!");
+}
+  
         let tasksRemaining = 6;
 
         function updateDate() {
@@ -555,42 +575,6 @@
 
         // Call the function when the page loads
         updateDate();
-
-
-        function completeTask(button) {
-            const taskCard = button.closest('.task-card');
-            const statusDiv = taskCard.querySelector('.status');
-            const taskTitle = taskCard.querySelector('.task-title').textContent;   
-
-            // Check if already completed
-            if (statusDiv.textContent === "Completed") {
-                showAlert("Task is already completed!");
-                return;
-            }
-
-            // Mark task as completed
-            statusDiv.textContent = "Completed";
-            statusDiv.style.backgroundColor = "#4caf50";
-
-            // Update tasks remaining count
-            tasksRemaining--;
-            document.getElementById('task-count').textContent = tasksRemaining;
-
-            // Add to activity log
-            const logItems = document.getElementById('log-items');
-            const now = new Date();
-            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-            const logItem = document.createElement('div');
-            logItem.classList.add('log-item');
-            logItem.innerHTML = `<p>You have completed the <b>${taskTitle}</b>. (${timeString})</p>`;
-
-            logItems.appendChild(logItem);
-
-            // Show completion alert
-            showAlert(`Task "${taskTitle}" completed successfully!`);
-        }
-
 
         function completeTask(button) {
             const taskCard = button.closest('.task-card');
@@ -638,8 +622,67 @@
             showAlert(`Task "${taskTitle}" completed successfully!`);
         }
 
+         
 
+        function completeAllTasks() {
+    const allTasks = document.querySelectorAll('.task-card');
+    
+    allTasks.forEach(taskCard => {
+        const statusDiv = taskCard.querySelector('.status');
+        const completeButton = taskCard.querySelector('.complete-btn');
+        const taskTitle = taskCard.querySelector('.task-title').textContent;
 
+        if (statusDiv.textContent !== "Completed") {
+            // Change status to completed
+            statusDiv.textContent = "Completed";
+            statusDiv.classList.add("completed-status");
+
+            // Change button text and apply bordered style
+            completeButton.textContent = "Completed";
+            completeButton.classList.add("bordered-completed"); // Add border style
+            completeButton.disabled = true; // Disable button
+
+            // Add to activity log
+            const logItems = document.getElementById('log-items');
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            const logItem = document.createElement('div');
+            logItem.classList.add('log-item');
+            logItem.innerHTML = `<p>You have completed the <b>${taskTitle}</b>. (${timeString})</p>`;
+
+            logItems.appendChild(logItem);
+        }
+    });
+
+    // Update task count
+    tasksRemaining = 0;
+    document.getElementById('task-count').textContent = tasksRemaining;
+
+    // Alert if all tasks are completed
+    if (tasksRemaining === 0) {
+        alert("You have completed all tasks!");
+    }
+ 
+
+            // Add to activity log
+
+            const logItems = document.getElementById('log-items');
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            // Add completed note to activity log
+            const logItem = document.createElement('div');
+            logItem.classList.add('log-item');
+            logItem.innerHTML = `<p>You completed <b>${taskTitle}</b>. (${timeString})</p>`;
+
+            logItems.appendChild(logItem);
+
+            // Show completion alert
+            showAlert(`Task "${taskTitle}" completed successfully!`);
+        }
+
+        
 
         function clearHistory() {
             document.getElementById('log-items').innerHTML = '';
@@ -655,6 +698,8 @@
                  alertBox.style.display = 'none';
              }, 3000);
         }
+
+ 
     </script>
 </body>
 
